@@ -8,8 +8,8 @@ import com.example.carcompare.model.Dimension;
 import com.example.carcompare.model.Engine;
 import com.example.carcompare.model.ModelVariant;
 import com.example.carcompare.repos.ModelVariantRepository;
+import com.example.carcompare.response.GenericResponseBody;
 import com.example.carcompare.services.ModelVariantService;
-import com.example.carcompare.services.SuggestionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Test;
@@ -63,7 +63,7 @@ public class BrandControllerTest {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/brands").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        List<String> actualResult = objectMapper.readValue(result.getResponse().getContentAsString(), List.class);
+        List<String> actualResult = (List<String>) objectMapper.readValue(result.getResponse().getContentAsString(), GenericResponseBody.class).getResponse();
         Assert.assertTrue(brands.size() == actualResult.size());
     }
 }

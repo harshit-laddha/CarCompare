@@ -8,6 +8,7 @@ import com.example.carcompare.model.Dimension;
 import com.example.carcompare.model.Engine;
 import com.example.carcompare.model.ModelVariant;
 import com.example.carcompare.repos.ModelVariantRepository;
+import com.example.carcompare.response.GenericResponseBody;
 import com.example.carcompare.services.ModelVariantService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
@@ -60,7 +61,7 @@ public class ModelVariantControllerTest {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/modelVariant/1").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        ModelVariant actualResult = objectMapper.readValue(result.getResponse().getContentAsString(), ModelVariant.class);
+        ModelVariant actualResult = (ModelVariant) objectMapper.readValue(result.getResponse().getContentAsString(), GenericResponseBody.class).getResponse();
         Assert.assertEquals(modelVariant1,actualResult);
     }
 
@@ -75,7 +76,7 @@ public class ModelVariantControllerTest {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/modelVariant/category/COMPACT_SUV").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        List<ModelVariant> actualResult = objectMapper.readValue(result.getResponse().getContentAsString(), List.class);
+        List<ModelVariant> actualResult = (List<ModelVariant>) objectMapper.readValue(result.getResponse().getContentAsString(), GenericResponseBody.class).getResponse();
         Assert.assertTrue(kiaModels.size() == actualResult.size());
     }
 }

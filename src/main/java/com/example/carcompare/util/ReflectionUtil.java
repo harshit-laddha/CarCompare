@@ -1,6 +1,5 @@
 package com.example.carcompare.util;
 
-import com.example.carcompare.model.ModelVariant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
