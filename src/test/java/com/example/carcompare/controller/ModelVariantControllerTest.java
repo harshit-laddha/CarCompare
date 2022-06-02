@@ -10,6 +10,7 @@ import com.example.carcompare.model.ModelVariant;
 import com.example.carcompare.repos.ModelVariantRepository;
 import com.example.carcompare.response.GenericResponseBody;
 import com.example.carcompare.services.ModelVariantService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Test;
@@ -61,7 +62,7 @@ public class ModelVariantControllerTest {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/modelVariant/1").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        ModelVariant actualResult = (ModelVariant) objectMapper.readValue(result.getResponse().getContentAsString(), GenericResponseBody.class).getResponse();
+        ModelVariant actualResult = (ModelVariant) objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<GenericResponseBody<ModelVariant>>() {}).getResponse();
         Assert.assertEquals(modelVariant1,actualResult);
     }
 
